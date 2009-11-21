@@ -1,0 +1,220 @@
+<?xml encoding="UTF-8"?>
+<sentences>
+<sentence>
+ <chunk id="0" link="1" rel="D" score="1.60983" head="0" func="1">
+  <tok id="0" read="ゲンダイ" base="現代" pos="名詞-一般" ctype="" cform="" ne="O">現代</tok>
+  <tok id="1" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="1" link="3" rel="D" score="0.20867" head="2" func="4">
+  <tok id="2" read="セイカツ" base="生活" pos="名詞-サ変接続" ctype="" cform="" ne="O">生活</tok>
+  <tok id="3" read="ニ" base="に" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">に</tok>
+  <tok id="4" read="ハ" base="は" pos="助詞-係助詞" ctype="" cform="" ne="O">は</tok>
+ </chunk>
+ <chunk id="2" link="3" rel="D" score="1.93951" head="5" func="5">
+  <tok id="5" read="モハヤ" base="もはや" pos="副詞-助詞類接続" ctype="" cform="" ne="O">もはや</tok>
+ </chunk>
+ <chunk id="3" link="4" rel="D" score="3.64868" head="6" func="8">
+  <tok id="6" read="カカ" base="欠く" pos="動詞-自立" ctype="五段・カ行イ音便" cform="未然形" ne="O">欠か</tok>
+  <tok id="7" read="セ" base="せる" pos="動詞-接尾" ctype="一段" cform="未然形" ne="O">せ</tok>
+  <tok id="8" read="ナイ" base="ない" pos="助動詞" ctype="特殊・ナイ" cform="基本形" ne="O">ない</tok>
+ </chunk>
+ <chunk id="4" link="13" rel="D" score="3.51414" head="9" func="11">
+  <tok id="9" read="コンピュータ" base="コンピュータ" pos="名詞-一般" ctype="" cform="" ne="O">コンピュータ</tok>
+  <tok id="10" read="デス" base="です" pos="助動詞" ctype="特殊・デス" cform="基本形" ne="O">です</tok>
+  <tok id="11" read="ガ" base="が" pos="助詞-接続助詞" ctype="" cform="" ne="O">が</tok>
+  <tok id="12" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+ </chunk>
+ <chunk id="5" link="13" rel="D" score="3.32284" head="13" func="14">
+  <tok id="13" read="コンピュータ" base="コンピュータ" pos="名詞-一般" ctype="" cform="" ne="O">コンピュータ</tok>
+  <tok id="14" read="ハ" base="は" pos="助詞-係助詞" ctype="" cform="" ne="O">は</tok>
+ </chunk>
+ <chunk id="6" link="7" rel="D" score="0.999929" head="15" func="15">
+  <tok id="15" read="ソレ" base="それ" pos="名詞-代名詞-一般" ctype="" cform="" ne="O">それ</tok>
+ </chunk>
+ <chunk id="7" link="9" rel="D" score="1.35853" head="16" func="17">
+  <tok id="16" read="イゼン" base="以前" pos="名詞-副詞可能" ctype="" cform="" ne="O">以前</tok>
+  <tok id="17" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="8" link="9" rel="D" score="1.6075" head="18" func="19">
+  <tok id="18" read="キカイ" base="機械" pos="名詞-一般" ctype="" cform="" ne="O">機械</tok>
+  <tok id="19" read="ヤ" base="や" pos="助詞-並立助詞" ctype="" cform="" ne="O">や</tok>
+ </chunk>
+ <chunk id="9" link="13" rel="D" score="3.71773" head="20" func="22">
+  <tok id="20" read="ニンゲン" base="人間" pos="名詞-一般" ctype="" cform="" ne="O">人間</tok>
+  <tok id="21" read="ト" base="と" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">と</tok>
+  <tok id="22" read="ハ" base="は" pos="助詞-係助詞" ctype="" cform="" ne="O">は</tok>
+ </chunk>
+ <chunk id="10" link="11" rel="D" score="2.13197" head="23" func="23">
+  <tok id="23" read="オオキク" base="大きい" pos="形容詞-自立" ctype="形容詞・イ段" cform="連用テ接続" ne="O">大きく</tok>
+ </chunk>
+ <chunk id="11" link="12" rel="D" score="1.45837" head="24" func="24">
+  <tok id="24" read="コトナル" base="異なる" pos="動詞-自立" ctype="五段・ラ行" cform="基本形" ne="O">異なる</tok>
+ </chunk>
+ <chunk id="12" link="13" rel="D" score="0" head="25" func="26">
+  <tok id="25" read="トクセイ" base="特性" pos="名詞-一般" ctype="" cform="" ne="O">特性</tok>
+  <tok id="26" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="13" link="-1" rel="O" score="0" head="27" func="30">
+  <tok id="27" read="モッ" base="持つ" pos="動詞-自立" ctype="五段・タ行" cform="連用タ接続" ne="O">持っ</tok>
+  <tok id="28" read="テ" base="て" pos="助詞-接続助詞" ctype="" cform="" ne="O">て</tok>
+  <tok id="29" read="イ" base="いる" pos="動詞-非自立" ctype="一段" cform="連用形" ne="O">い</tok>
+  <tok id="30" read="マス" base="ます" pos="助動詞" ctype="特殊・マス" cform="基本形" ne="O">ます</tok>
+  <tok id="31" read="。" base="。" pos="記号-句点" ctype="" cform="" ne="O">。</tok>
+ </chunk>
+</sentence>
+<sentence>
+ <chunk id="0" link="16" rel="D" score="4.01524" head="1" func="3">
+  <tok id="0" read="21" base="21" pos="名詞-数" ctype="" cform="" ne="B-DATE">21</tok>
+  <tok id="1" read="セイキ" base="世紀" pos="名詞-一般" ctype="" cform="" ne="I-DATE">世紀</tok>
+  <tok id="2" read="ニ" base="に" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">に</tok>
+  <tok id="3" read="ハ" base="は" pos="助詞-係助詞" ctype="" cform="" ne="O">は</tok>
+  <tok id="4" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+ </chunk>
+ <chunk id="1" link="2" rel="D" score="1.05172" head="5" func="5">
+  <tok id="5" read="ソウシタ" base="そうした" pos="連体詞" ctype="" cform="" ne="O">そうした</tok>
+ </chunk>
+ <chunk id="2" link="3" rel="D" score="1.29184" head="6" func="7">
+  <tok id="6" read="コンピュータ" base="コンピュータ" pos="名詞-一般" ctype="" cform="" ne="O">コンピュータ</tok>
+  <tok id="7" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="3" link="5" rel="D" score="2.91232" head="8" func="9">
+  <tok id="8" read="トクセイ" base="特性" pos="名詞-一般" ctype="" cform="" ne="O">特性</tok>
+  <tok id="9" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="4" link="5" rel="D" score="2.53065" head="10" func="10">
+  <tok id="10" read="サラニ" base="さらに" pos="副詞-助詞類接続" ctype="" cform="" ne="O">さらに</tok>
+ </chunk>
+ <chunk id="5" link="10" rel="D" score="0.345237" head="11" func="12">
+  <tok id="11" read="ヒキダシ" base="引き出す" pos="動詞-自立" ctype="五段・サ行" cform="連用形" ne="O">引き出し</tok>
+  <tok id="12" read="テ" base="て" pos="助詞-接続助詞" ctype="" cform="" ne="O">て</tok>
+  <tok id="13" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+ </chunk>
+ <chunk id="6" link="7" rel="D" score="0.100227" head="14" func="16">
+  <tok id="14" read="ニンゲン" base="人間" pos="名詞-一般" ctype="" cform="" ne="O">人間</tok>
+  <tok id="15" read="ト" base="と" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">と</tok>
+  <tok id="16" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="7" link="8" rel="D" score="1.90648" head="17" func="17">
+  <tok id="17" read="ヨリ" base="より" pos="副詞-一般" ctype="" cform="" ne="O">より</tok>
+ </chunk>
+ <chunk id="8" link="9" rel="D" score="1.40123" head="18" func="19">
+  <tok id="18" read="テキセツ" base="適切" pos="名詞-形容動詞語幹" ctype="" cform="" ne="O">適切</tok>
+  <tok id="19" read="ナ" base="だ" pos="助動詞" ctype="特殊・ダ" cform="体言接続" ne="O">な</tok>
+ </chunk>
+ <chunk id="9" link="10" rel="D" score="0.918699" head="21" func="22">
+  <tok id="20" read="キョウドウ" base="協同" pos="名詞-サ変接続" ctype="" cform="" ne="O">協同</tok>
+  <tok id="21" read="サギョウ" base="作業" pos="名詞-サ変接続" ctype="" cform="" ne="O">作業</tok>
+  <tok id="22" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="10" link="16" rel="D" score="4.16794" head="26" func="26">
+  <tok id="23" read="スイシン" base="推進" pos="名詞-サ変接続" ctype="" cform="" ne="O">推進</tok>
+  <tok id="24" read="シ" base="する" pos="動詞-自立" ctype="サ変・スル" cform="連用形" ne="O">し</tok>
+  <tok id="25" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+  <tok id="26" read="アルイハ" base="あるいは" pos="接続詞" ctype="" cform="" ne="O">あるいは</tok>
+ </chunk>
+ <chunk id="11" link="12" rel="D" score="1.63966" head="27" func="29">
+  <tok id="27" read="シャカイ" base="社会" pos="名詞-一般" ctype="" cform="" ne="O">社会</tok>
+  <tok id="28" read="デ" base="で" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">で</tok>
+  <tok id="29" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="12" link="13" rel="D" score="2.27316" head="31" func="32">
+  <tok id="30" read="ユウコウ" base="有効" pos="名詞-形容動詞語幹" ctype="" cform="" ne="O">有効</tok>
+  <tok id="31" read="カツヨウ" base="活用" pos="名詞-サ変接続" ctype="" cform="" ne="O">活用</tok>
+  <tok id="32" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="13" link="14" rel="D" score="1.51101" head="34" func="34">
+  <tok id="33" read="テイアン" base="提案" pos="名詞-サ変接続" ctype="" cform="" ne="O">提案</tok>
+  <tok id="34" read="スル" base="する" pos="動詞-自立" ctype="サ変・スル" cform="基本形" ne="O">する</tok>
+ </chunk>
+ <chunk id="14" link="16" rel="D" score="5.61735" head="35" func="36">
+  <tok id="35" read="シテン" base="視点" pos="名詞-一般" ctype="" cform="" ne="O">視点</tok>
+  <tok id="36" read="ガ" base="が" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">が</tok>
+ </chunk>
+ <chunk id="15" link="16" rel="D" score="0" head="37" func="37">
+  <tok id="37" read="マスマス" base="ますます" pos="副詞-助詞類接続" ctype="" cform="" ne="O">ますます</tok>
+ </chunk>
+ <chunk id="16" link="-1" rel="O" score="0" head="38" func="40">
+  <tok id="38" read="モトメ" base="求める" pos="動詞-自立" ctype="一段" cform="未然形" ne="O">求め</tok>
+  <tok id="39" read="ラレ" base="られる" pos="動詞-接尾" ctype="一段" cform="連用形" ne="O">られ</tok>
+  <tok id="40" read="マス" base="ます" pos="助動詞" ctype="特殊・マス" cform="基本形" ne="O">ます</tok>
+  <tok id="41" read="。" base="。" pos="記号-句点" ctype="" cform="" ne="O">。</tok>
+ </chunk>
+</sentence>
+<sentence>
+ <chunk id="0" link="16" rel="D" score="3.65161" head="2" func="4">
+  <tok id="0" read="コンピュータ" base="コンピュータ" pos="名詞-一般" ctype="" cform="" ne="O">コンピュータ</tok>
+  <tok id="1" read="カガク" base="科学" pos="名詞-一般" ctype="" cform="" ne="O">科学</tok>
+  <tok id="2" read="センシュウ" base="専修" pos="名詞-サ変接続" ctype="" cform="" ne="O">専修</tok>
+  <tok id="3" read="デ" base="で" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">で</tok>
+  <tok id="4" read="ハ" base="は" pos="助詞-係助詞" ctype="" cform="" ne="O">は</tok>
+  <tok id="5" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+ </chunk>
+ <chunk id="1" link="2" rel="D" score="0.463049" head="6" func="7">
+  <tok id="6" read="ケイサン" base="計算" pos="名詞-サ変接続" ctype="" cform="" ne="O">計算</tok>
+  <tok id="7" read="ト" base="と" pos="助詞-並立助詞" ctype="" cform="" ne="O">と</tok>
+ </chunk>
+ <chunk id="2" link="3" rel="D" score="1.52713" head="8" func="9">
+  <tok id="8" read="ジョウホウショリ" base="情報処理" pos="名詞-一般" ctype="" cform="" ne="O">情報処理</tok>
+  <tok id="9" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="3" link="5" rel="D" score="1.17126" head="10" func="11">
+  <tok id="10" read="タメ" base="ため" pos="名詞-非自立-副詞可能" ctype="" cform="" ne="O">ため</tok>
+  <tok id="11" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="4" link="5" rel="D" score="1.24595" head="12" func="13">
+  <tok id="12" read="アラタ" base="新た" pos="名詞-形容動詞語幹" ctype="" cform="" ne="O">新た</tok>
+  <tok id="13" read="ナ" base="だ" pos="助動詞" ctype="特殊・ダ" cform="体言接続" ne="O">な</tok>
+ </chunk>
+ <chunk id="5" link="6" rel="D" score="0.805422" head="15" func="16">
+  <tok id="14" read="キソ" base="基礎" pos="名詞-一般" ctype="" cform="" ne="O">基礎</tok>
+  <tok id="15" read="ガイネン" base="概念" pos="名詞-一般" ctype="" cform="" ne="O">概念</tok>
+  <tok id="16" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="6" link="7" rel="D" score="1.02703" head="17" func="18">
+  <tok id="17" read="コウチク" base="構築" pos="名詞-サ変接続" ctype="" cform="" ne="O">構築</tok>
+  <tok id="18" read="ト" base="と" pos="助詞-並立助詞" ctype="" cform="" ne="O">と</tok>
+ </chunk>
+ <chunk id="7" link="15" rel="D" score="0.710298" head="19" func="19">
+  <tok id="19" read="オウヨウ" base="応用" pos="名詞-サ変接続" ctype="" cform="" ne="O">応用</tok>
+  <tok id="20" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+ </chunk>
+ <chunk id="8" link="9" rel="D" score="0.782769" head="21" func="21">
+  <tok id="21" read="オヨビ" base="および" pos="接続詞" ctype="" cform="" ne="O">および</tok>
+ </chunk>
+ <chunk id="9" link="10" rel="D" score="2.59727" head="22" func="23">
+  <tok id="22" read="ジョウホウ" base="情報" pos="名詞-一般" ctype="" cform="" ne="O">情報</tok>
+  <tok id="23" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="10" link="12" rel="D" score="0.295792" head="27" func="27">
+  <tok id="24" read="リヨウ" base="利用" pos="名詞-サ変接続" ctype="" cform="" ne="O">利用</tok>
+  <tok id="25" read="・" base="・" pos="記号-一般" ctype="" cform="" ne="O">・</tok>
+  <tok id="26" read="ショリ" base="処理" pos="名詞-サ変接続" ctype="" cform="" ne="O">処理</tok>
+  <tok id="27" read="シ" base="する" pos="動詞-自立" ctype="サ変・スル" cform="連用形" ne="O">し</tok>
+  <tok id="28" read="、" base="、" pos="記号-読点" ctype="" cform="" ne="O">、</tok>
+ </chunk>
+ <chunk id="11" link="12" rel="D" score="1.62889" head="29" func="30">
+  <tok id="29" read="ニンゲン" base="人間" pos="名詞-一般" ctype="" cform="" ne="O">人間</tok>
+  <tok id="30" read="ト" base="と" pos="助詞-並立助詞" ctype="" cform="" ne="O">と</tok>
+ </chunk>
+ <chunk id="12" link="14" rel="D" score="0.759659" head="32" func="32">
+  <tok id="31" read="インタラクト" base="インタラクト" pos="名詞-一般" ctype="" cform="" ne="O">インタラクト</tok>
+  <tok id="32" read="スル" base="する" pos="動詞-自立" ctype="サ変・スル" cform="基本形" ne="O">する</tok>
+ </chunk>
+ <chunk id="13" link="14" rel="D" score="1.2092" head="33" func="33">
+  <tok id="33" read="アタラシイ" base="新しい" pos="形容詞-自立" ctype="形容詞・イ段" cform="基本形" ne="O">新しい</tok>
+ </chunk>
+ <chunk id="14" link="15" rel="D" score="1.74281" head="34" func="35">
+  <tok id="34" read="アリカタ" base="あり方" pos="名詞-一般" ctype="" cform="" ne="O">あり方</tok>
+  <tok id="35" read="ノ" base="の" pos="助詞-連体化" ctype="" cform="" ne="O">の</tok>
+ </chunk>
+ <chunk id="15" link="16" rel="D" score="0" head="36" func="37">
+  <tok id="36" read="ソウゾウ" base="創造" pos="名詞-サ変接続" ctype="" cform="" ne="O">創造</tok>
+  <tok id="37" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="16" link="-1" rel="O" score="0" head="38" func="39">
+  <tok id="38" read="メザシ" base="目指す" pos="動詞-自立" ctype="五段・サ行" cform="連用形" ne="O">目指し</tok>
+  <tok id="39" read="マス" base="ます" pos="助動詞" ctype="特殊・マス" cform="基本形" ne="O">ます</tok>
+  <tok id="40" read="。" base="。" pos="記号-句点" ctype="" cform="" ne="O">。</tok>
+ </chunk>
+</sentence>
+</sentences>

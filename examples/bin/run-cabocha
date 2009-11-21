@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# This script pipes a utf-8 encoded file through iconv, parses it with cabocha (which only suuports euc-jp), and then pipes the results back through iconv.
+iconv -f utf-8 -t euc-jp $1 | cabocha -f 3 | iconv -f euc-jp -t utf-8
