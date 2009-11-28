@@ -15,15 +15,23 @@ Sample clojure source file
   ([filename] (clojure.xml/parse (java.io.File. filename)))
 )
 
-(defn do-map-sentences [sentences]
-  (text sentences)
-)
-
 (defn flatten [x] 
   (let [s? #(instance? clojure.lang.Sequential %)] (filter (complement s?) (tree-seq s? seq x)))) 
 
 (defn text [element]
     (flatten (for [x (xml-seq element) :when (= :tok (:tag x))] (:content x))))
+
+(defn increment-count [map key]
+  (assoc map key (+ 1 (get map key 0))))
+
+(defn do-map-sentences [sentences]
+  (let [t (text sentences)]
+    (loop [types {} token (first t) txt (rest t)]
+;      (println token)
+      (if (empty? txt)
+	(increment-count types token)
+	(recur (increment-count types token) (first txt) (rest txt))))))
+
 
 (defn load-cabocha-file
   " Parses the given file and returns a nicer data structure."
