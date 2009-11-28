@@ -14,16 +14,20 @@ Sample clojure source file
   ([] (parse-cabocha "/home/vaelen/projects/jpdv/examples/utf-8/keio_st_overview/overview.xml"))
   ([filename] (clojure.xml/parse (java.io.File. filename)))
 )
-(defn do-map-sentences 
-  [sentences] (
-    (println (first sentences))
-    (if(seq(rest sentences)) (do-map-sentences (rest sentences)))
-  )
+
+(defn do-map-sentences [sentences]
+  (text sentences)
 )
+
+(defn flatten [x] 
+  (let [s? #(instance? clojure.lang.Sequential %)] (filter (complement s?) (tree-seq s? seq x)))) 
+
+(defn text [element]
+    (flatten (for [x (xml-seq element) :when (= :tok (:tag x))] (:content x))))
 
 (defn load-cabocha-file
   " Parses the given file and returns a nicer data structure."
-  ([] (do-map-sentences(parse-cabocha)))
-  ([filename] (do-map-sentences parse-cabocha(filename)))
+  ([] (do-map-sentences (parse-cabocha)))
+  ([filename] (do-map-sentences (parse-cabocha(filename))))
 )
 
