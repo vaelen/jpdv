@@ -31,12 +31,6 @@ Author: Andrew Young <andrew at vaelen.org>"
   [map key]
   (assoc map key (inc (get map key 0))))
 
-(defn manage-context 
-  "Manages a context buffer, adding tokens to it while maintaining a size no larger than the
-   context-size"
-  [context context-size token]
-  (conj (if (>= (count context) context-size) (rest context) context) token))
-
 (defn merge-counts
   "Merges a seq of key/count maps into a single map."
   [maps]
@@ -56,25 +50,52 @@ Author: Andrew Young <andrew at vaelen.org>"
       :count (+ (:count old-record) (:count new-record))
      }))
 
+(defn add-type
+  "Adds a record to the type map."
+  [types token pre-context post-context]
+  (assoc types token (update-context (types token) {
+						    :context (merge-counts (for [x (into pre-context post-context)] {x 1}))
+						    :token token
+						    :count 1
+						    })))
+
+; Context looks like this: ([...] token [...])
+(defn get-start-context
+  "Builds up the starting context."
+  [words context-size]
+  (let [start-post-context (vec (take (inc context-size) words)) start-words (drop (inc context-size) words)]
+    (loop [types {} pre-context [] post-context (subvec start-post-context 1) mid (first start-post-context) token (first start-words) txt (rest start-words)]
+      (if (= (count pre-context) context-size)
+	{:txt txt :token token :pre-context pre-context :mid mid :post-context post-context :types types} ; Done
+	(recur ; Not Done
+	  (add-type types mid pre-context post-context)           
+	  (conj pre-context mid)
+	  (conj (subvec post-context 1) token) 
+	  (first post-context)
+	  (first txt) 
+	  (rest txt))))))
+
 (defn get-context 
   "Given a seq of words, returns the context of the previous context-size words.
    If there is more than one instance of a given word in the text, the contexts for each are combined."
   [words context-size]
-  (loop [types {} context [] token (first words) txt (rest words)]
-    (if (empty? txt)
-      (assoc types token (update-context (types token) {
-							:context (merge-counts (for [x context] {x 1}))
-							:token token
-							:count 1
-							}))
-      (recur 
-       (assoc types token (update-context (types token) {
-							 :context (merge-counts (for [x context] {x 1}))
-							 :token token
-							 :count 1
-							 }))
-       (manage-context context context-size token)
-       (first txt) (rest txt)))))
+  ; Start by filling the context buffer so that we can get pre and post contexts
+  (let [start-context (get-start-context words (quot context-size 2))]
+    (loop [types (:types start-context) 
+	   pre-context (:pre-context start-context)
+	   mid (:mid start-context)
+	   post-context (:post-context start-context)
+	   token (:token start-context)
+	   txt (:txt start-context)]
+      (if (empty? post-context)
+	(add-type types mid pre-context post-context) ; Done Recursing
+	(recur ; Not Done Yet, Recurse
+	  (add-type types mid pre-context post-context)
+	  (conj (subvec pre-context 1) mid)
+	  (first post-context)
+	  (subvec (if (nil? token) post-context (conj post-context token)) 1)
+	  (first txt)
+	  (rest txt))))))
 
 (defn get-context-space 
   "Generates a pre context window for each word type in the given seq of sentence trees."
@@ -85,8 +106,8 @@ Author: Andrew Young <andrew at vaelen.org>"
 
 (defn load-cabocha-file
   "Parses the given file and returns a nicer data structure."
-  ([] (get-context-space (parse-cabocha) 5))
-  ([filename] (get-context (parse-cabocha(filename) 5)))
+  ([] (get-context-space (parse-cabocha) 10))
+  ([filename] (get-context-space (parse-cabocha(filename) 10)))
 )
 
 (defn sort-space
