@@ -4,17 +4,16 @@ Author: Andrew Young <andrew at vaelen.org>"
 )
 
 (ns org.vaelen.jpdv
-  (:use ([clojure.xml :only (parse)])) 
+  (:use ([clojure.xml :only (parse)]))
+  (:require [clojure.contrib [str-utils :as str-utils]])
   (:import (java.io.File))
-    (:gen-class)
-)
+  (:gen-class))
 
 (defn parse-cabocha 
   "Parses the given XML file in CaboCha format.
    If no file name is given, an example file is parsed."
   ([] (parse-cabocha "/home/vaelen/projects/jpdv/examples/utf-8/keio_st_overview/overview.xml"))
-  ([filename] (clojure.xml/parse (java.io.File. filename)))
-)
+  ([filename] (clojure.xml/parse (java.io.File. filename))))
 
 (defn flatten 
   "Flattens an tree structure, returning all the leafs as a seq."
@@ -103,14 +102,35 @@ Author: Andrew Young <andrew at vaelen.org>"
   (let [t (text sentences)] ; Flatten the sentences to get just the text.
     (get-context (text sentences) context-size)))
 
-
-(defn load-cabocha-file
-  "Parses the given file and returns a nicer data structure."
-  ([] (get-context-space (parse-cabocha) 10))
-  ([filename] (get-context-space (parse-cabocha(filename) 10)))
-)
-
 (defn sort-space
   "Sorts the space by word frequency."
   [space]
   (sort-by #(:count (second %1)) #(- 0 (compare %1 %2)) space))
+
+(defn get-context-features
+  "Returns a set of all context features (dimentions) in a given vector space"
+  [space]
+  (set (flatten (for [x space] (keys (:context (second x)))))))
+
+(defn load-cabocha-file
+  "Parses the given file and returns a nicer data structure."
+  ([] (get-context-space (parse-cabocha) 10))
+  ([filename] (get-context-space (parse-cabocha(filename) 10))))
+
+(defn write-space
+  "Writes a vector space to standard out."
+  [space]
+  (let [features (get-context-features space)]
+    (println (format "%s\t%s" "WORD" (str-utils/str-join "\t" (sorted-set features))))
+    (let [default-features (merge-counts (for [x features] {x 0}))]
+      (loop [type (first space) buffer (rest space)]
+	(let [type-features (into (sorted-map) (merge default-features (:context (second type))))]
+	  (println (format "%s\t%s" (first type) (str-utils/str-join "\t" (map second type-features))))
+	  (if (empty? buffer)
+	    nil ; Done
+	    (recur (first buffer) (next buffer))))))))
+
+(defn go
+  "A command for performing the default actions from a REPL."
+  []
+  (write-space (load-cabocha-file)))
