@@ -1,0 +1,32 @@
+\documentclass[11pt,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{CJK}
+\usepackage{fullpage}
+
+\usepackage{tikz}
+
+\newcommand{\jptext}[1]{\begin{CJK}{UTF8}{min}#1\end{CJK}}
+
+\begin{document}
+
+\begin{center}
+\begin{tikzpicture}[sibling distance=20mm] \tikzstyle{every node}=[draw] \node {S} child { node {\jptext{これ}} child { node {\jptext{は}} } } child { node {\jptext{日本語}} child { node {\jptext{です}} } child { node {\jptext{。}} } } ; \end{tikzpicture} 
+
+\vspace{2em}
+
+\begin{tikzpicture}[sibling distance=20mm] \tikzstyle{every node}=[draw] \node {S} child { node {\jptext{ボックス}} child { node {\jptext{検索}} } child { node {\jptext{に}} } } child { node {\jptext{キーワード}} child { node {\jptext{の}} } } child { node {\jptext{候補}} child { node {\jptext{を}} } } child { node {\jptext{する}} child { node {\jptext{表示}} } child { node {\jptext{。}} } } ; \end{tikzpicture} 
+
+\vspace{2em}
+
+\begin{tikzpicture}[sibling distance=20mm] \tikzstyle{every node}=[draw] \node {S} child { node {\jptext{さん}} child { node {\jptext{ヤング}} } child { node {\jptext{は}} } } child { node {\jptext{日本}} child { node {\jptext{へ}} } } child { node {\jptext{妻}} child { node {\jptext{と}} } } child { node {\jptext{娘}} child { node {\jptext{を}} } } child[missing] child[missing] child { node {\jptext{連れ}} child { node {\jptext{て}} } child { node {\jptext{行き}} } child { node {\jptext{たい}} } child { node {\jptext{です}} } child { node {\jptext{。}} } } ; \end{tikzpicture} 
+
+\end{center}
+
+\end{document}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% End:

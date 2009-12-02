@@ -5,7 +5,7 @@ Author: Andrew Young <andrew at vaelen.org>"
 
 (ns org.vaelen.jpdv
   (:use ([clojure.xml :only (parse)]))
-  (:require [clojure.contrib [str-utils :as str-utils]])
+  (:require [clojure.contrib [str-utils :as str-utils] [zip-filter :as zip-filter]] [clojure.contrib.zip-filter [xml :as zip-xml]] [clojure.zip])
   (:import (java.io.File))
   (:gen-class))
 
@@ -112,11 +112,6 @@ Author: Andrew Young <andrew at vaelen.org>"
   [space]
   (set (flatten (for [x space] (keys (:context (second x)))))))
 
-(defn load-cabocha-file
-  "Parses the given file and returns a nicer data structure."
-  ([] (get-context-space (parse-cabocha) 10))
-  ([filename] (get-context-space (parse-cabocha(filename) 10))))
-
 (defn write-space
   "Writes a vector space to standard out."
   [space]
@@ -130,7 +125,24 @@ Author: Andrew Young <andrew at vaelen.org>"
 	    nil ; Done
 	    (recur (first buffer) (next buffer))))))))
 
+(defn write-latex-tree
+  "Writes a parsed dependency tree to standard out."
+  [tree]
+  (let [root (clojure.zip/xml-zip tree)]
+    (println (str-utils/str-join "\n" 
+      (for [sentence (zip-xml/xml-> root :sentence)]
+        (format "\\begin{tikzpicture}[sibling distance=20mm] \\tikzstyle{every node}=[draw] \\node {S} %s ; \\end{tikzpicture} " (str-utils/str-join " "
+          (for [chunk (zip-xml/xml-> sentence :chunk)]
+            (let [head (zip-xml/attr chunk :head)]
+              (format "child { node {\\jptext{%s}} %s }" 
+	(zip-xml/text (zip-xml/xml1-> chunk :tok (zip-xml/attr= :id head)))
+	(str-utils/str-join " "
+                  (for [token (zip-xml/xml-> chunk :tok (complement (zip-xml/attr= :id head)))]
+	    (format "child { node {\\jptext{%s}} }" (zip-xml/text token))))))))))))))
+
 (defn go
   "A command for performing the default actions from a REPL."
   []
-  (write-space (load-cabocha-file)))
+  ;(write-space (get-context-space (parse-cabocha) 10))
+  (write-latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/utf-8/simple/example.xml")))
+  ;(write-latex-tree (parse-cabocha)))

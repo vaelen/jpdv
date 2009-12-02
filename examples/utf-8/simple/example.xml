@@ -1,4 +1,4 @@
-<?xml encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <sentences>
 <sentence>
  <chunk id="0" link="1" rel="D" score="0" head="0" func="1">
@@ -29,6 +29,33 @@
   <tok id="7" read="ヒョウジ" base="表示" pos="名詞-サ変接続" ctype="" cform="" ne="O">表示</tok>
   <tok id="8" read="スル" base="する" pos="動詞-自立" ctype="サ変・スル" cform="基本形" ne="O">する</tok>
   <tok id="9" read="。" base="。" pos="記号-句点" ctype="" cform="" ne="O">。</tok>
+ </chunk>
+</sentence>
+<sentence>
+ <chunk id="0" link="4" rel="D" score="3.28903" head="1" func="2">
+  <tok id="0" read="ヤング" base="ヤング" pos="名詞-固有名詞-人名-姓" ctype="" cform="" ne="B-PERSON">ヤング</tok>
+  <tok id="1" read="サン" base="さん" pos="名詞-接尾-人名" ctype="" cform="" ne="O">さん</tok>
+  <tok id="2" read="ハ" base="は" pos="助詞-係助詞" ctype="" cform="" ne="O">は</tok>
+ </chunk>
+ <chunk id="1" link="4" rel="D" score="4.83878" head="3" func="4">
+  <tok id="3" read="ニッポン" base="日本" pos="名詞-固有名詞-地域-国" ctype="" cform="" ne="B-LOCATION">日本</tok>
+  <tok id="4" read="ヘ" base="へ" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">へ</tok>
+ </chunk>
+ <chunk id="2" link="3" rel="D" score="1.24581" head="5" func="6">
+  <tok id="5" read="ツマ" base="妻" pos="名詞-一般" ctype="" cform="" ne="O">妻</tok>
+  <tok id="6" read="ト" base="と" pos="助詞-並立助詞" ctype="" cform="" ne="O">と</tok>
+ </chunk>
+ <chunk id="3" link="4" rel="D" score="0" head="7" func="8">
+  <tok id="7" read="ムスメ" base="娘" pos="名詞-一般" ctype="" cform="" ne="O">娘</tok>
+  <tok id="8" read="ヲ" base="を" pos="助詞-格助詞-一般" ctype="" cform="" ne="O">を</tok>
+ </chunk>
+ <chunk id="4" link="-1" rel="O" score="0" head="9" func="13">
+  <tok id="9" read="ツレ" base="連れる" pos="動詞-自立" ctype="一段" cform="連用形" ne="O">連れ</tok>
+  <tok id="10" read="テ" base="て" pos="助詞-接続助詞" ctype="" cform="" ne="O">て</tok>
+  <tok id="11" read="イキ" base="行く" pos="動詞-非自立" ctype="五段・カ行促音便" cform="連用形" ne="O">行き</tok>
+  <tok id="12" read="タイ" base="たい" pos="助動詞" ctype="特殊・タイ" cform="基本形" ne="O">たい</tok>
+  <tok id="13" read="デス" base="です" pos="助動詞" ctype="特殊・デス" cform="基本形" ne="O">です</tok>
+  <tok id="14" read="。" base="。" pos="記号-句点" ctype="" cform="" ne="O">。</tok>
  </chunk>
 </sentence>
 </sentences>
