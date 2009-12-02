@@ -12,7 +12,7 @@ Author: Andrew Young <andrew at vaelen.org>"
 (defn parse-cabocha 
   "Parses the given XML file in CaboCha format.
    If no file name is given, an example file is parsed."
-  ([] (parse-cabocha "/home/vaelen/projects/jpdv/examples/utf-8/keio_st_overview/overview.xml"))
+  ([] (parse-cabocha "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml"))
   ([filename] (clojure.xml/parse (java.io.File. filename))))
 
 (defn flatten 
@@ -144,5 +144,5 @@ Author: Andrew Young <andrew at vaelen.org>"
   "A command for performing the default actions from a REPL."
   []
   ;(write-space (get-context-space (parse-cabocha) 10))
-  (write-latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/utf-8/simple/example.xml")))
+  (write-latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
   ;(write-latex-tree (parse-cabocha)))
