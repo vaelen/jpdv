@@ -189,6 +189,40 @@ Author: Andrew Young <andrew at vaelen.org>"
             nil ; Done
             (recur (first buffer) (next buffer))))))))
 
+(defn func-word
+  "Returns a query predicate that matches the function word of a given chunk."
+  [chunk]
+  (let [func-id (zip-xml/attr chunk :func)]
+    (fn [loc] (= func-id (zip-xml/attr loc :id)))))
+
+(defn func-word?
+  "Returns true if the given token is the function word for the given chunk."
+  [chunk token]
+  (let [func-id (zip-xml/attr chunk :func)]
+    (= func-id (zip-xml/attr token :id))))
+
+(defn get-func-word-base
+  "Returns the base form of the function word for the given chunk."
+  [chunk]
+  (zip-xml/attr (zip-xml/xml1-> chunk :tok (func-word chunk)) :base))
+
+(defn head-word
+  "Returns a query predicate that matches the head word of a given chunk."
+  [chunk]
+  (let [head-id (zip-xml/attr chunk :head)]
+    (fn [loc] (= head-id (zip-xml/attr loc :id)))))
+ 
+(defn head-word?
+  "Returns true if the given token is the headword for the given chunk."
+  [chunk token]
+  (let [head-id (zip-xml/attr chunk :head)]
+    (= head-id (zip-xml/attr token :id))))
+
+(defn get-head-word-base
+  "Returns the base form of the head word for the given chunk."
+  [chunk]
+  (zip-xml/attr (zip-xml/xml1-> chunk :tok (head-word chunk)) :base))
+
 (defn latex-node
   "Returns the LaTeX node definition for a given node of the parse tree."
   [node children & options]
@@ -202,14 +236,13 @@ Author: Andrew Young <andrew at vaelen.org>"
 (defn latex-chunk
   "Returns the LaTeX tree representation for a given chunk."
   [chunk]
-  (let [head (zip-xml/attr chunk :head)]
-    (latex-node
-     (str-utils/str-join "" (for [token (zip-xml/xml-> chunk :tok (complement (zip-xml/attr= :id (zip-xml/attr chunk :func))))] 
-                              (if (= head (zip-xml/attr token :id)) 
-                                (format "\\textcolor{red}{%s}" (zip-xml/text token))
-                                (zip-xml/text token))))
-     (str-utils/str-join " " (for [child (zip-xml/xml-> chunk :chunk)] 
-                               (latex-relation-node (zip-xml/attr (zip-xml/xml1-> child :tok (zip-xml/attr= :id (zip-xml/attr child :func))) :base) (latex-chunk child)))))))
+  (latex-node
+   (str-utils/str-join "" (for [token (zip-xml/xml-> chunk :tok (complement (func-word chunk)))] 
+                            (if (head-word? chunk token) 
+                              (format "\\textcolor{red}{%s}" (zip-xml/text token))
+                              (zip-xml/text token))))
+   (str-utils/str-join " " (for [child (zip-xml/xml-> chunk :chunk)] 
+                             (latex-relation-node (get-func-word-base child) (latex-chunk child))))))
 
 (defn latex-tree
   "Returns a LaTeX representation of a parsed dependency tree."
