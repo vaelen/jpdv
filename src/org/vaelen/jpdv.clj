@@ -191,8 +191,13 @@ Author: Andrew Young <andrew at vaelen.org>"
 
 (defn latex-node
   "Returns the LaTeX node definition for a given node of the parse tree."
-  [node children]
+  [node children & options]
   (format "child { node {\\jptext{%s}} %s }" node children))
+
+(defn latex-relation-node
+  "Returns the LaTeX node definition for a given node of the parse tree."
+  [node children & options]
+  (format "child { node[blue] {\\jptext{%s}} %s }" node children))
 
 (defn latex-chunk
   "Returns the LaTeX tree representation for a given chunk."
@@ -204,7 +209,7 @@ Author: Andrew Young <andrew at vaelen.org>"
                                 (format "\\textcolor{red}{%s}" (zip-xml/text token))
                                 (zip-xml/text token))))
      (str-utils/str-join " " (for [child (zip-xml/xml-> chunk :chunk)] 
-                               (latex-chunk child))))))
+                               (latex-relation-node (zip-xml/attr child :func) (latex-chunk child)))))))
 
 (defn latex-tree
   "Returns a LaTeX representation of a parsed dependency tree."
@@ -212,7 +217,7 @@ Author: Andrew Young <andrew at vaelen.org>"
   (let [root (clojure.zip/xml-zip tree)]
     (println (str-utils/str-join "\n" 
       (for [sentence (zip-xml/xml-> root :sentence)]
-        (format "\\begin{tikzpicture}[sibling distance=40mm]\n\\tikzstyle{every node}=[draw]\n\\node {S} %s ;\n\\end{tikzpicture}\n\n"
+        (format "\\begin{tikzpicture}[sibling distance=40mm,level distance=10mm]\n\\tikzstyle{every node}=[draw]\n\\node {S} %s ;\n\\end{tikzpicture}\n\n"
                 (str-utils/str-join " " (for [chunk (zip-xml/xml-> sentence :chunk)] (latex-chunk chunk)))))))))
 
 (defn convert-to-dependency-tree-xml
@@ -228,8 +233,8 @@ Author: Andrew Young <andrew at vaelen.org>"
   ;(pprint/pprint (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml"))
   ;(pprint/pprint (text (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
   ;(write-space (get-context-space "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml" 10))
-  ;(println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
-  (println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml")))
+  (println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
+  ;(println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml")))
   ;(convert-to-dependency-tree-xml "/home/vaelen/projects/jpdv/examples/simple/example.xml" *out*)
 
 )

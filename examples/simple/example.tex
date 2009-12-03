@@ -15,23 +15,21 @@
 
 \begin{center}
 
-\begin{tikzpicture}[sibling distance=40mm]
+\begin{tikzpicture}[sibling distance=40mm,level distance=10mm]
 \tikzstyle{every node}=[draw]
-\node {S} child { node {\jptext{\textcolor{red}{日本語}です。}} child { node {\jptext{\textcolor{red}{これ}は}}  } } ;
+\node {S} child { node {\jptext{\textcolor{red}{日本語}です。}} child { node[blue] {\jptext{1}} child { node {\jptext{\textcolor{red}{これ}は}}  } } } ;
+\end{tikzpicture}
+\hspace{2em}
+\begin{tikzpicture}[sibling distance=40mm,level distance=10mm]
+\tikzstyle{every node}=[draw]
+\node {S} child { node {\jptext{表示\textcolor{red}{する}。}} child { node[blue] {\jptext{6}} child { node {\jptext{\textcolor{red}{候補}を}} child { node[blue] {\jptext{4}} child { node {\jptext{\textcolor{red}{キーワード}の}}  } } } } child { node[blue] {\jptext{2}} child { node {\jptext{検索\textcolor{red}{ボックス}に}}  } } } ;
 \end{tikzpicture}
 
-\vspace{1em}
+\vspace{2em}
 
-\begin{tikzpicture}[sibling distance=40mm]
+\begin{tikzpicture}[sibling distance=40mm,level distance=10mm]
 \tikzstyle{every node}=[draw]
-\node {S} child { node {\jptext{表示\textcolor{red}{する}。}} child { node {\jptext{\textcolor{red}{候補}を}} child { node {\jptext{\textcolor{red}{キーワード}の}}  } } child { node {\jptext{検索\textcolor{red}{ボックス}に}}  } } ;
-\end{tikzpicture}
-
-\vspace{1em}
-
-\begin{tikzpicture}[sibling distance=40mm]
-\tikzstyle{every node}=[draw]
-\node {S} child { node {\jptext{\textcolor{red}{連れ}て行きたいです。}} child { node {\jptext{\textcolor{red}{娘}を}} child { node {\jptext{\textcolor{red}{妻}と}}  } } child { node {\jptext{\textcolor{red}{日本}へ}}  } child { node {\jptext{ヤング\textcolor{red}{さん}は}}  } } ;
+\node {S} child { node {\jptext{\textcolor{red}{連れ}て行きたいです。}} child { node[blue] {\jptext{8}} child { node {\jptext{\textcolor{red}{娘}を}} child { node[blue] {\jptext{6}} child { node {\jptext{\textcolor{red}{妻}と}}  } } } } child { node[blue] {\jptext{4}} child { node {\jptext{\textcolor{red}{日本}へ}}  } } child { node[blue] {\jptext{2}} child { node {\jptext{ヤング\textcolor{red}{さん}は}}  } } } ;
 \end{tikzpicture}
 
 \end{center}
