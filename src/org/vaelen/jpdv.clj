@@ -204,12 +204,12 @@ Author: Andrew Young <andrew at vaelen.org>"
   [chunk]
   (let [head (zip-xml/attr chunk :head)]
     (latex-node
-     (str-utils/str-join "" (for [token (zip-xml/xml-> chunk :tok)] 
+     (str-utils/str-join "" (for [token (zip-xml/xml-> chunk :tok (complement (zip-xml/attr= :id (zip-xml/attr chunk :func))))] 
                               (if (= head (zip-xml/attr token :id)) 
                                 (format "\\textcolor{red}{%s}" (zip-xml/text token))
                                 (zip-xml/text token))))
      (str-utils/str-join " " (for [child (zip-xml/xml-> chunk :chunk)] 
-                               (latex-relation-node (zip-xml/attr child :func) (latex-chunk child)))))))
+                               (latex-relation-node (zip-xml/attr (zip-xml/xml1-> child :tok (zip-xml/attr= :id (zip-xml/attr child :func))) :base) (latex-chunk child)))))))
 
 (defn latex-tree
   "Returns a LaTeX representation of a parsed dependency tree."
@@ -233,8 +233,8 @@ Author: Andrew Young <andrew at vaelen.org>"
   ;(pprint/pprint (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml"))
   ;(pprint/pprint (text (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
   ;(write-space (get-context-space "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml" 10))
-  (println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
-  ;(println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml")))
+  ;(println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/simple/example.xml")))
+  (println (latex-tree (parse-cabocha "/home/vaelen/projects/jpdv/examples/keio_st_overview/overview.xml")))
   ;(convert-to-dependency-tree-xml "/home/vaelen/projects/jpdv/examples/simple/example.xml" *out*)
 
 )
