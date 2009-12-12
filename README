@@ -1,1 +1,3 @@
 This is a tool for generating semantic vector spaces from Japanese text that has been parsed with the Cabocha dependency parser.
+
+This is the branch written in Clojure.  It has been (at least temporarily) abandoned.
