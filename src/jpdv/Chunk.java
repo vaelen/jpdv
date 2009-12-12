@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import org.w3c.dom.Element;
@@ -91,8 +92,8 @@ public class Chunk extends LexicalItem implements Iterable<Token>, Serializable 
         children.add(chunk);
     }
 
-    public List<Chunk> getChildren() {
-        return new ArrayList<Chunk>(children);
+    public Set<Chunk> getChildren() {
+        return children;
     }
 
     public Token getFunc() {

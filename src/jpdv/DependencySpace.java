@@ -32,7 +32,6 @@ package jpdv;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.Set;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
@@ -50,7 +49,7 @@ public class DependencySpace extends VectorSpace {
     public static final char PATH_SEPARATOR = '⇄';
     public static final int PROCESSING_QUEUE_CAPACITY = Integer.MAX_VALUE;
     public static final int UPDATE_QUEUE_CAPACITY = Integer.MAX_VALUE;
-
+    public static final long SLEEP_TIME = 1000L;
 
     protected final AtomicBoolean done = new AtomicBoolean(false);
 
@@ -59,17 +58,22 @@ public class DependencySpace extends VectorSpace {
 
     @Override
     public void generateSpace(final Collection<BaseForm> targets) {
+        TargetFinder targetFinder = new TargetFinder(targets);
+        targetFinder.start();
 
+        ChunkProcessor chunkProcessor = new ChunkProcessor(targets);
+        chunkProcessor.start();
 
+        UpdateProcessor updateProcessor = new UpdateProcessor();
+        updateProcessor.start();
 
-        SpaceUpdater spaceUpdater = new SpaceUpdater();
-        spaceUpdater.start();
-
-        Deque<Chunk> queue = new ArrayDeque<Chunk>();
-    }
-
-    private void findNextTarget(Set<BaseForm> targets) {
-        Deque<Chunk> queue = new ArrayDeque<Chunk>();
+        while(!done.get()) {
+            try {
+                Thread.sleep(SLEEP_TIME);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(DependencySpace.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private BaseForm createPathForm(Collection<BaseForm> path) {
@@ -136,11 +140,65 @@ public class DependencySpace extends VectorSpace {
         }
     }
 
+    /**
+     * This class looks for sentences that contain targets and adds them to the processing queue.
+     */
+    private class TargetFinder extends Thread {
 
-    /** This class processes pending chunks, finding all possible paths from the target. */
+        private final Collection<BaseForm> targets;
+
+        public TargetFinder(Collection<BaseForm> targets) {
+            this.targets = targets;
+        }
+
+        private void lookForTargets(Deque<Chunk> stack, Chunk current) {
+            stack.push(current);
+            for (Token token : current) {
+                if (targets.contains(token.getBaseForm())) {
+                    // Found a target, stop looking
+                    Deque<Chunk> stackCopy = new ArrayDeque<Chunk>(stack);
+                    processingQueue.addLast(stackCopy);
+                    break;
+                }
+            }
+            for(Chunk child: current.getChildren()) {
+                lookForTargets(stack, child);
+            }
+            stack.pop();
+        }
+
+        @Override
+        public void run() {
+
+            Deque<Chunk> stack = new ArrayDeque<Chunk>();
+
+            for(Sentence sentence: corpus) {
+                stack.clear();
+                Chunk root = null;
+                for(Chunk chunk: sentence) {
+                    if(chunk.getLink() == -1) {
+                        // Root chunk
+                        root = chunk;
+                        break;
+                    }
+                }
+                if(root != null) {
+                    lookForTargets(stack, root);
+                }
+            }
+
+            // This tells the other threads that there are no more chunks
+            // to process once the current backlog is finished.
+           done.set(true);
+        }
+    }
+
+    /**
+     * This class processes pending chunks, finding all possible paths from the target.
+     * Then it adds the new paths to the update queue for the UpdateProcessor to handle.
+     * More than one of these threads can be started to improve the speed of the parsing.
+     */
     private class ChunkProcessor extends Thread {
-
-        private static final long SLEEP_TIME = 5000L;
 
         private final Collection<BaseForm> targets;
 
@@ -180,10 +238,10 @@ public class DependencySpace extends VectorSpace {
         }
     }
 
-    /** This class posts pending updates to the vector space in a thread-safe manner. */
-    private class SpaceUpdater extends Thread {
-
-        private static final long SLEEP_TIME = 5000L;
+    /** 
+     * This class posts pending updates to the vector space in a thread-safe manner.
+     */
+    private class UpdateProcessor extends Thread {
 
         @Override
         public void run() {
