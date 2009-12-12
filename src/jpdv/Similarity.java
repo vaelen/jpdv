@@ -77,7 +77,7 @@ public class Similarity {
             String key = keys[i];
             out.printf("%s", key);
             for(int j = 0; j < sim[i].length; j++) {
-                out.printf("\t%f", sim[i][j]);
+                out.printf("\t%.15f", sim[i][j]);
             }
             out.println();
             out.flush();

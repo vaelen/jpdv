@@ -44,6 +44,7 @@ public class Token extends LexicalItem implements Serializable {
     private final String value;
 
     private final BaseForm baseForm;
+    private final BaseForm posForm;
 
     private boolean head;
     private boolean func;
@@ -55,6 +56,7 @@ public class Token extends LexicalItem implements Serializable {
         this.base = base;
         this.baseForm = BaseForm.getInstance(base);
         this.pos = pos;
+        this.posForm = BaseForm.getPOSInstance(pos);
         this.ctype = ctype;
         this.cform = cform;
         this.ne = ne;
@@ -107,6 +109,10 @@ public class Token extends LexicalItem implements Serializable {
 
     public String getPos() {
         return pos;
+    }
+
+    public BaseForm getPosForm() {
+        return posForm;
     }
 
     public String getReading() {

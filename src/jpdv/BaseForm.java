@@ -38,7 +38,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,6 +48,7 @@ import java.util.Set;
 public class BaseForm extends LexicalItem {
 
     public static final String DEFAULT_ENCODING = "UTF-8";
+    public static final char POS_SEPARATOR = '-';
 
     private static final Map<String, BaseForm> baseForms = new HashMap<String, BaseForm>();
 
@@ -104,6 +104,15 @@ public class BaseForm extends LexicalItem {
             baseForms.put(value, baseForm);
         }
         return baseForm;
+    }
+
+    public static BaseForm getPOSInstance(String pos) {
+        String basePOS = pos;
+        int sepLocation = pos.indexOf(POS_SEPARATOR);
+        if(sepLocation > -1) {
+            basePOS = pos.substring(0, sepLocation);
+        }
+        return getInstance(basePOS);
     }
 
     public static List<BaseForm> getInstances(String... values) {

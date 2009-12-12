@@ -51,7 +51,9 @@ public class DependencySpace extends VectorSpace {
     public static final int UPDATE_QUEUE_CAPACITY = Integer.MAX_VALUE;
     public static final long SLEEP_TIME = 1000L;
 
-    protected final AtomicBoolean done = new AtomicBoolean(false);
+    protected final AtomicBoolean doneFindingTargets = new AtomicBoolean(false);
+    protected final AtomicBoolean doneProcessing = new AtomicBoolean(false);
+    protected final AtomicBoolean doneUpdating = new AtomicBoolean(false);
 
     protected final Deque<Deque<Chunk>> processingQueue = new LinkedBlockingDeque<Deque<Chunk>>(PROCESSING_QUEUE_CAPACITY);
     protected final Deque<Deque<BaseForm>> updateQueue = new LinkedBlockingDeque<Deque<BaseForm>>(UPDATE_QUEUE_CAPACITY);
@@ -71,7 +73,7 @@ public class DependencySpace extends VectorSpace {
         UpdateProcessor updateProcessor = new UpdateProcessor();
         updateProcessor.start();
 
-        while(!done.get()) {
+        while(!doneUpdating.get()) {
             try {
                 Thread.sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
@@ -89,29 +91,33 @@ public class DependencySpace extends VectorSpace {
         // Delete the final extra path separator
         sb.deleteCharAt(sb.length() - 1);
         Logger logger = Logger.getLogger(DependencySpace.class.getName());
-        if(logger.isLoggable(Level.INFO)) {
-            logger.log(Level.INFO, "Created Path: %s", sb.toString());
+        if(logger.isLoggable(Level.FINE)) {
+            logger.log(Level.FINE, String.format("Created Path: %s", sb.toString()));
         }
         return BaseForm.getInstance(sb.toString());
     }
 
     private void buildPaths(BaseForm target, Chunk last, Chunk current, Deque<Chunk> stack, Deque<BaseForm> path, Deque<BaseForm> updates) {
-        // Add our current path
-        BaseForm pathForm = createPathForm(path);
-        updates.add(pathForm);
+        // Add our current path if this isn't the first chunk
+        if(!last.equals(current)) {
+            BaseForm pathForm = createPathForm(path);
+            updates.add(pathForm);
+        }
         // Follow all children except the one we came from.
         for(Chunk child: current.getChildren()) {
-            Token head = child.getHead();
-            if(head != null) {
-                Token func = child.getFunc();
-                if (func != null) {
-                    path.add(func.getBaseForm());
-                }
-                path.addLast(head.getBaseForm());
-                buildPaths(target, current, child, null, path, updates);
-                path.removeLast(); // Remove the headword
-                if(func != null) {
-                    path.removeLast(); // Remove the edge
+            if(!child.equals(last)) {
+                Token head = child.getHead();
+                if (head != null) {
+                    Token func = child.getFunc();
+                    if (func != null) {
+                        path.add(func.getBaseForm());
+                    }
+                    path.addLast(head.getPosForm());
+                    buildPaths(target, current, child, null, path, updates);
+                    path.removeLast(); // Remove the headword
+                    if (func != null) {
+                        path.removeLast(); // Remove the edge
+                    }
                 }
             }
         }
@@ -133,7 +139,7 @@ public class DependencySpace extends VectorSpace {
                     if (func != null) {
                         path.add(func.getBaseForm());
                     }
-                    path.addLast(head.getBaseForm());
+                    path.addLast(head.getPosForm());
                     buildPaths(target, current, parent, stack, path, updates);
                     path.removeLast(); // Remove the headword
                     if(func != null) {
@@ -193,7 +199,7 @@ public class DependencySpace extends VectorSpace {
 
             // This tells the other threads that there are no more chunks
             // to process once the current backlog is finished.
-           done.set(true);
+           doneFindingTargets.set(true);
         }
     }
 
@@ -212,7 +218,7 @@ public class DependencySpace extends VectorSpace {
 
         @Override
         public void run() {
-            while (!done.get()) {
+            while (!doneFindingTargets.get() || !processingQueue.isEmpty()) {
                 Deque<Chunk> stack = processingQueue.pollFirst();
                 if(stack == null) {
                     try {
@@ -229,16 +235,17 @@ public class DependencySpace extends VectorSpace {
                         if(targets.contains(baseForm)) {
                             // Found a target, use it.
                             Deque<BaseForm> path = new ArrayDeque<BaseForm>();
-                            path.addLast(baseForm);
+                            path.addLast(token.getPosForm());
                             Deque<BaseForm> updates = new ArrayDeque<BaseForm>();
+                            updates.addLast(baseForm);
                             buildPaths(baseForm, root, root, stack, path, updates);
                             // Add updates to the update queue.
                             updateQueue.addLast(updates);
                         }
                     }
                 }
-
             }
+            doneProcessing.set(true);
         }
     }
 
@@ -249,7 +256,7 @@ public class DependencySpace extends VectorSpace {
 
         @Override
         public void run() {
-            while (!done.get()) {
+            while (!doneProcessing.get() || !updateQueue.isEmpty()) {
                 Deque<BaseForm> update = updateQueue.pollFirst();
                 if(update == null) {
                     try {
@@ -259,11 +266,12 @@ public class DependencySpace extends VectorSpace {
                     }
                 } else {
                     // Perform update, first element is the key.
+                    System.err.printf("FOUND UPDATE! %s%n", update.toString());
                     BaseForm key = update.removeFirst();
                     incrementCount(key, update);
                 }
-
             }
+            doneUpdating.set(true);
         }
     }
 
