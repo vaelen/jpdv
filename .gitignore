@@ -1,6 +1,7 @@
 data
 build
 dist
+semeval2*
 *.aux
 *.log
 *#
