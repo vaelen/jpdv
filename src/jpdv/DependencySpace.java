@@ -266,7 +266,6 @@ public class DependencySpace extends VectorSpace {
                     }
                 } else {
                     // Perform update, first element is the key.
-                    System.err.printf("FOUND UPDATE! %s%n", update.toString());
                     BaseForm key = update.removeFirst();
                     incrementCount(key, update);
                 }
