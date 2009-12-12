@@ -29,6 +29,7 @@ wish to do so, delete this exception statement from your version.
 
 package jpdv;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
@@ -96,6 +97,18 @@ public class ContextSpace extends VectorSpace {
                 }
             }
         }
+    }
+
+    private void incrementCount(Token current, Collection<Token> preContext, Collection<Token> postContext) {
+        BaseForm key = current.getBaseForm();
+        ArrayList<BaseForm> basisElements = new ArrayList<BaseForm>(preContext.size() + postContext.size());
+        for (Token t : preContext) {
+            basisElements.add(t.getBaseForm());
+        }
+        for (Token t : postContext) {
+            basisElements.add(t.getBaseForm());
+        }
+        incrementCount(key, basisElements);
     }
 
     private Token nextToken() {

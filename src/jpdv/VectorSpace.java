@@ -60,27 +60,19 @@ public abstract class VectorSpace {
         return basisElements;
     }
 
-    protected void incrementCount(Token current, Collection<Token> preContext, Collection<Token> postContext) {
-        Map<BaseForm, Integer> map = space.get(current.getBaseForm());
+    protected void incrementCount(BaseForm key, Collection<BaseForm> basisElements) {
+        Map<BaseForm, Integer> map = space.get(key);
         if (map == null) {
             map = new TreeMap<BaseForm, Integer>();
-            space.put(current.getBaseForm(), map);
+            space.put(key, map);
         }
-        for (Token t : preContext) {
-            Integer i = map.get(t.getBaseForm());
+        for(BaseForm basisElement: basisElements) {
+            Integer i = map.get(basisElement);
             if (i == null) {
                 i = 0;
             }
             i++;
-            map.put(t.getBaseForm(), i);
-        }
-        for (Token t : postContext) {
-            Integer i = map.get(t.getBaseForm());
-            if (i == null) {
-                i = 0;
-            }
-            i++;
-            map.put(t.getBaseForm(), i);
+            map.put(basisElement, i);
         }
     }
 
