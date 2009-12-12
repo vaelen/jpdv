@@ -94,9 +94,9 @@ public class Main {
                 double endTime = new Date().getTime();
                 logger.log(Level.INFO, String.format("Total Parse Time: %,.3f seconds", (endTime - startTime) / 1000.0));
                 path = path.substring(0, path.length() - 4);
-                File binaryFile = new File(String.format("%s.corpus", path));
-                logger.log(Level.INFO, String.format("Writing Binary File: %s", binaryFile.getAbsolutePath()));
-                corpus.writeBinary(binaryFile);
+                //File binaryFile = new File(String.format("%s.corpus", path));
+                //logger.log(Level.INFO, String.format("Writing Binary File: %s", binaryFile.getAbsolutePath()));
+                //corpus.writeBinary(binaryFile);
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.WARNING, String.format("Couldn't Write Binary File: %s", ex.toString()), ex);
             }
