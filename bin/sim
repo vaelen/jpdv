@@ -1,0 +1,3 @@
+#!/bin/bash
+
+java -Xmx1024M -cp Jama-1.0.2.jar:dist/jpdv2.jar jpdv.Similarity $*
