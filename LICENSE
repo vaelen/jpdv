@@ -20,7 +20,24 @@ based on this library.  If you modify this library, you may extend this exceptio
 your version of the library, but you are not obligated to do so.  If you do not wish to
 do so, delete this exception statement from your version.
 
-Japanese Dependency Vectors (jpdv) also contains other (example) code distributed under other terms. 
+Japanese Dependency Vectors (jpdv) also contains other code distributed under other terms. 
 External libraries included with Japanese Dependency Vectors (jpdv) may also be distributed under
 different licensing terms. The location and the exact terms of this other code is
 mentioned below if applicable.
+
+----------------------------------------------------------------------------------------------------
+
+Jama-1.0.2.jar - The Java Matrix Package (JAMA) http://math.nist.gov/javanumerics/jama/
+                 JAMA Copyright Notice: This software is a cooperative product of The MathWorks and
+                 the National Institute of Standards and Technology (NIST) which has been released 
+                 to the public domain. Neither The MathWorks nor NIST assumes any responsibility 
+                 whatsoever for its use by other parties, and makes no guarantees, expressed or 
+                 implied, about its quality, reliability, or any other characteristic.  
+
+src/jpdv/vectorspace/*.java - This code was borrowed from a blog article by Sujit Pal.  The code was
+                              later incorporated into his project: My Java Text Mining Toolkit (JTMT) 
+                              which is located here: http://jtmt.sourceforge.net/
+                              He released this code under the LGPL, but it is apparently being moved
+                              into commons-math-2.0, so I will eventually try to add that project as
+                              a dependency instead of incorporating the code from the original blog
+                              article here directly.
