@@ -49,7 +49,7 @@ public class ContextSpace extends VectorSpace {
     private Iterator<Token> tokenIterator;
 
     public ContextSpace(Corpus corpus, int contextSize) {
-        this.corpus = corpus;
+        super(corpus);
         this.contextSize = contextSize;
     }
 

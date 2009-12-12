@@ -56,6 +56,10 @@ public class DependencySpace extends VectorSpace {
     protected final Deque<Deque<Chunk>> processingQueue = new LinkedBlockingDeque<Deque<Chunk>>(PROCESSING_QUEUE_CAPACITY);
     protected final Deque<Deque<BaseForm>> updateQueue = new LinkedBlockingDeque<Deque<BaseForm>>(UPDATE_QUEUE_CAPACITY);
 
+    public DependencySpace(Corpus corpus) {
+        super(corpus);
+    }
+
     @Override
     public void generateSpace(final Collection<BaseForm> targets) {
         TargetFinder targetFinder = new TargetFinder(targets);

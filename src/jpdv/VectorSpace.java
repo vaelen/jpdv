@@ -47,6 +47,10 @@ public abstract class VectorSpace {
     protected Corpus corpus;
     protected Map<BaseForm, Map<BaseForm, Integer>> space = new TreeMap<BaseForm, Map<BaseForm, Integer>>();
 
+    protected VectorSpace(Corpus corpus) {
+        this.corpus = corpus;
+    }
+
     public abstract void generateSpace(Collection<BaseForm> targets);
 
     public List<BaseForm> getBasisElements() {

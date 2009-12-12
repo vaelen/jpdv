@@ -116,16 +116,35 @@ public class Main {
             logger.log(Level.SEVERE, String.format("File Type Unknown: %s", file.getAbsolutePath()));
         }
         corpus.printStats(new PrintWriter(System.out));
-        logger.log(Level.INFO, String.format("Generating Context Space, Context Size: %,d", contextSize));
-        ContextSpace contextSpace = new ContextSpace(corpus, contextSize);
-        contextSpace.generateSpace(targets);
-        File contextSpaceFile = new File(String.format("%s.context-%d", path, contextSize));
-        logger.log(Level.INFO, String.format("Writing Context Space: %s", contextSpaceFile.getAbsolutePath()));
-        try {
-            contextSpace.writeSpace(contextSpaceFile);
-        } catch (FileNotFoundException ex) {
-            logger.log(Level.SEVERE, String.format("Couldn't Write Context Space: %s", ex.toString()), ex);
+
+        // Context Space
+        {
+            logger.log(Level.INFO, String.format("Generating Context Space, Context Size: %,d", contextSize));
+            ContextSpace contextSpace = new ContextSpace(corpus, contextSize);
+            contextSpace.generateSpace(targets);
+            File contextSpaceFile = new File(String.format("%s.context-%d", path, contextSize));
+            logger.log(Level.INFO, String.format("Writing Context Space: %s", contextSpaceFile.getAbsolutePath()));
+            try {
+                contextSpace.writeSpace(contextSpaceFile);
+            } catch (FileNotFoundException ex) {
+                logger.log(Level.SEVERE, String.format("Couldn't Write Context Space: %s", ex.toString()), ex);
+            }
         }
+
+        // Dependency Space
+        {
+            logger.log(Level.INFO, "Generating Dependency Space");
+            DependencySpace dependencySpace = new DependencySpace(corpus);
+            dependencySpace.generateSpace(targets);
+            File dependencySpaceFile = new File(String.format("%s.dependency", path));
+            logger.log(Level.INFO, String.format("Writing Dependency Space: %s", dependencySpaceFile.getAbsolutePath()));
+            try {
+                dependencySpace.writeSpace(dependencySpaceFile);
+            } catch (FileNotFoundException ex) {
+                logger.log(Level.SEVERE, String.format("Couldn't Write Dependency Space: %s", ex.toString()), ex);
+            }
+        }
+
     }
 
 }
