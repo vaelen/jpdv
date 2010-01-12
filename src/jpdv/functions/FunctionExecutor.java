@@ -45,7 +45,7 @@ import javax.script.ScriptException;
  * This class executes various functions implemented as scripts.
  *
  * These include:
- *   The content selection function
+ *   The context selection function
  *   The path value function
  *   The basis mapping function
  *
@@ -72,8 +72,8 @@ public class FunctionExecutor {
             case BASIS_MAPPING:
                 function = getDefaultImpl("TestFunction.groovy");
                 break;
-            case CONTENT_SELECTION:
-                function = getDefaultImpl("ContentSelectionFunction.groovy");
+            case CONTEXT_SELECTION:
+                function = getDefaultImpl("ContextSelectionFunction.groovy");
                 break;
             case PATH_VALUE:
                 function = getDefaultImpl("PathValueFunction.groovy");
@@ -113,8 +113,8 @@ public class FunctionExecutor {
         function.eval();
     }
 
-    public static synchronized void executeContentSelectionFunction() {
-        Function function = FUNCTION_MAP.get(FunctionType.CONTENT_SELECTION);
+    public static synchronized void executeContextSelectionFunction() {
+        Function function = FUNCTION_MAP.get(FunctionType.CONTEXT_SELECTION);
         function.bind("date", new Date());
         function.eval();
     }

@@ -35,7 +35,7 @@ package jpdv.functions;
  */
 public enum FunctionType {
     TEST,
-    CONTENT_SELECTION,
+    CONTEXT_SELECTION,
     PATH_VALUE,
     BASIS_MAPPING
 }
