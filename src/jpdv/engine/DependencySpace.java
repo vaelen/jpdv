@@ -1,6 +1,6 @@
 /*
 Japanese Dependency Vectors (jpdv) - A tool for creating Japanese semantic vector spaces.
-Copyright (C) 2009 Andrew Young <andrew at vaelen.org>
+Copyright (C) 2010 Andrew Young <andrew at vaelen.org>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published

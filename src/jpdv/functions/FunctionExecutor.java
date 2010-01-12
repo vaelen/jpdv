@@ -1,6 +1,6 @@
 /*
 Japanese Dependency Vectors (jpdv) - A tool for creating Japanese semantic vector spaces.
-Copyright (C) 2009 Andrew Young <andrew at vaelen.org>
+Copyright (C) 2010 Andrew Young <andrew at vaelen.org>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published
@@ -31,6 +31,10 @@ package jpdv.functions;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.script.ScriptEngine;
@@ -55,15 +59,80 @@ import javax.script.ScriptException;
  */
 public class FunctionExecutor {
 
-    private static void executeTestFunction(Function function) {
-        function.bind("foo", "bar");
+    private static final Map<FunctionType, Function> FUNCTION_MAP = new ConcurrentHashMap<FunctionType, Function>();
+    static {
+        for(FunctionType type: FunctionType.values()) {
+            FUNCTION_MAP.put(type, getDefaultImpl(type));
+        }
+    }
+
+    public static Function getDefaultImpl(FunctionType type) {
+        Function function = null;
+        switch(type) {
+            case BASIS_MAPPING:
+                function = getDefaultImpl("TestFunction.groovy");
+                break;
+            case CONTENT_SELECTION:
+                function = getDefaultImpl("ContentSelectionFunction.groovy");
+                break;
+            case PATH_VALUE:
+                function = getDefaultImpl("PathValueFunction.groovy");
+                break;
+            case TEST:
+            default:
+                function = getDefaultImpl("TestFunction.groovy");
+                break;
+        }
+        return function;
+    }
+
+    private static Function getDefaultImpl(String name) {
+        return new Function(getResource(String.format("/jpdv/functions/impl/%s", name)));
+    }
+
+    private static URL getResource(String name) {
+        URL url = FunctionExecutor.class.getResource(name);
+        if(url == null) {
+            Logger.getLogger(FunctionExecutor.class.getName()).log(Level.WARNING, String.format("Resource Not Found: %s", name));
+        }
+        return url;
+    }
+
+    public static void setFunction(FunctionType type, Function function) {
+        FUNCTION_MAP.put(type, function);
+    }
+
+    public static Function getFunction(FunctionType type) {
+        return FUNCTION_MAP.get(type);
+    }
+
+    public static synchronized void executeTestFunction(String foo) {
+        Function function = FUNCTION_MAP.get(FunctionType.TEST);
+        function.bind("foo", foo);
+        function.bind("date", new Date());
+        function.eval();
+    }
+
+    public static synchronized void executeContentSelectionFunction() {
+        Function function = FUNCTION_MAP.get(FunctionType.CONTENT_SELECTION);
+        function.bind("date", new Date());
+        function.eval();
+    }
+
+    public static synchronized void executePathValueFunction() {
+        Function function = FUNCTION_MAP.get(FunctionType.PATH_VALUE);
+        function.bind("date", new Date());
+        function.eval();
+    }
+
+    public static synchronized void executeBasisMappingFunction() {
+        Function function = FUNCTION_MAP.get(FunctionType.BASIS_MAPPING);
+        function.bind("date", new Date());
         function.eval();
     }
 
     public static void main(String[] args) {
-        URL url = FunctionExecutor.class.getClassLoader().getResource("/jpdv/functions/TestFunction.groovy");
-        Function function = new Function(url);
-        executeTestFunction(function);
+        executeTestFunction("bar");
     }
 
 }

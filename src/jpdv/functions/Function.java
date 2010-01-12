@@ -1,6 +1,6 @@
 /*
 Japanese Dependency Vectors (jpdv) - A tool for creating Japanese semantic vector spaces.
-Copyright (C) 2009 Andrew Young <andrew at vaelen.org>
+Copyright (C) 2010 Andrew Young <andrew at vaelen.org>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published
@@ -34,11 +34,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.script.Bindings;
@@ -62,7 +57,6 @@ public class Function {
     private String extension;
     private final String script;
     private ScriptEngine scriptEngine;
-    private ScriptContext scriptContext;
     private Bindings bindings;
 
     public Function(String language, String script) {
@@ -78,7 +72,9 @@ public class Function {
     }
 
     public Function(File scriptSource) {
-        this.extension = getExtension(scriptSource.getName()).toString();
+        if(scriptSource != null) {
+            this.extension = getExtension(scriptSource.getName()).toString();
+        }
         this.script = StreamUtils.read(scriptSource);
         init();
     }
@@ -102,7 +98,9 @@ public class Function {
     }
 
     public Function(URI scriptSource) {
-        this.extension = getExtension(scriptSource.getPath()).toString();
+        if(scriptSource != null) {
+            this.extension = getExtension(scriptSource.getPath()).toString();
+        }
         this.script = StreamUtils.read(scriptSource);
         init();
     }
@@ -114,7 +112,9 @@ public class Function {
     }
 
     public Function(URL scriptSource) {
-        this.extension = getExtension(scriptSource.getPath()).toString();
+        if(scriptSource != null) {
+            this.extension = getExtension(scriptSource.getPath()).toString();
+        }
         this.script = StreamUtils.read(scriptSource);
         init();
     }
