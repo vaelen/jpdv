@@ -27,7 +27,7 @@ to your version of the library, but you are not obligated to do so. If you do no
 wish to do so, delete this exception statement from your version. 
 */
 
-package jpdv;
+package jpdv.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +36,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jpdv.engine.BaseForm;
+import jpdv.engine.ContextSpace;
+import jpdv.engine.Corpus;
+import jpdv.engine.DependencySpace;
 
 public class Main {
     public static final void main(String[] args) {

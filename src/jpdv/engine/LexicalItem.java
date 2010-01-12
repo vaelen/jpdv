@@ -27,7 +27,7 @@ to your version of the library, but you are not obligated to do so. If you do no
 wish to do so, delete this exception statement from your version. 
 */
 
-package jpdv;
+package jpdv.engine;
 
 import java.io.Serializable;
 import java.util.HashSet;
