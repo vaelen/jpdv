@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import jpdv.functions.FunctionExecutor;
 
 public abstract class VectorSpace {
 
@@ -55,13 +56,7 @@ public abstract class VectorSpace {
 
     public List<BaseForm> getBasisElements() {
         // Generate list of basis elements
-        Set<BaseForm> baseFormSet = new HashSet<BaseForm>();
-        for (Map<BaseForm, Integer> map : space.values()) {
-            baseFormSet.addAll(map.keySet());
-        }
-        ArrayList<BaseForm> basisElements = new ArrayList<BaseForm>(baseFormSet);
-        Collections.sort(basisElements);
-        return basisElements;
+        return FunctionExecutor.executeBasisMappingFunction(space);
     }
 
     protected void incrementCount(BaseForm key, Collection<BaseForm> basisElements) {

@@ -29,4 +29,12 @@ wish to do so, delete this exception statement from your version.
 
 package jpdv.functions.impl
 
-println "Current Time: $date"
+// Map<BaseForm, Map<BaseForm, Integer>> space
+
+// Generate list of basis elements
+def baseFormSet = new HashSet()
+space.values.each {
+    baseFormSet.addAll(it.keySet)
+}
+println "# of Basis Mappings: ${baseFormSet.size}"
+return baseFormSet;

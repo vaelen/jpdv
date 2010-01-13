@@ -29,4 +29,5 @@ wish to do so, delete this exception statement from your version.
 
 package jpdv.functions.impl
 
-println "Current Time: $date"
+println "Path: $path"
+return 1

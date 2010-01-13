@@ -31,15 +31,20 @@ package jpdv.functions;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import jpdv.engine.BaseForm;
 
 /**
  * This class executes various functions implemented as scripts.
@@ -113,22 +118,48 @@ public class FunctionExecutor {
         function.eval();
     }
 
-    public static synchronized void executeContextSelectionFunction() {
+    public static synchronized boolean executeContextSelectionFunction(String path) {
+        boolean ret = true;
         Function function = FUNCTION_MAP.get(FunctionType.CONTEXT_SELECTION);
-        function.bind("date", new Date());
-        function.eval();
+        function.bind("path", path);
+        Object obj = function.eval();
+        if(obj instanceof Boolean) {
+            ret = ((Boolean)obj).booleanValue();
+        }
+        return ret;
     }
 
-    public static synchronized void executePathValueFunction() {
+    public static synchronized double executePathValueFunction(String path) {
+        double ret = 1.0;
         Function function = FUNCTION_MAP.get(FunctionType.PATH_VALUE);
-        function.bind("date", new Date());
-        function.eval();
+        function.bind("path", path);
+        Object obj = function.eval();
+        if(obj instanceof Number) {
+            ret = ((Number)obj).doubleValue();
+        }
+        return ret;
     }
 
-    public static synchronized void executeBasisMappingFunction() {
+    public static synchronized List<BaseForm> executeBasisMappingFunction(Map<BaseForm, Map<BaseForm, Integer>> space) {
+        List<BaseForm> list = new ArrayList<BaseForm>();
         Function function = FUNCTION_MAP.get(FunctionType.BASIS_MAPPING);
-        function.bind("date", new Date());
-        function.eval();
+        function.bind("space", space);
+        Object obj = function.eval();
+        if(obj instanceof Iterable) {
+            Iterable i = (Iterable) obj;
+            for(Object o: i) {
+                BaseForm b = null;
+                if(o instanceof BaseForm) {
+                    b = (BaseForm) o;
+                } else if (o != null) {
+                    b = BaseForm.getInstance(o.toString());
+                }
+                if(b != null) {
+                    list.add(b);
+                }
+            }
+        }
+        return list;
     }
 
     public static void main(String[] args) {

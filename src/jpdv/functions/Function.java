@@ -155,12 +155,14 @@ public class Function {
         }
     }
 
-    protected void eval() {
+    protected Object eval() {
+        Object ret = null;
         try {
-            scriptEngine.eval(script);
+            ret = scriptEngine.eval(script);
         } catch (ScriptException ex) {
             Logger.getLogger(Function.class.getName()).log(Level.SEVERE, "Couldn't Execute Function", ex);
         }
+        return ret;
     }
 
 }
