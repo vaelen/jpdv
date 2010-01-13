@@ -31,9 +31,11 @@ package jpdv.functions.impl
 
 //Collection<BaseForm> path
 
-int THRESHOLD = 6
-if(path.size() > THRESHOLD) {
-    return false
-} else {
-    return true
-}
+//int THRESHOLD = 6
+//if(path.size() > THRESHOLD) {
+//    return false
+//} else {
+//    return true
+//}
+
+return true

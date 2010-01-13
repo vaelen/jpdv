@@ -39,9 +39,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jpdv.vectorspace.CosineSimilarity;
@@ -53,8 +50,8 @@ public class Similarity {
 
     private Similarity() {}
 
-    public void writeSimilarityMatrix(File file) throws FileNotFoundException {
-        writeSimilarityMatrix(new PrintWriter(file));
+    public void writeSimilarityMatrix(File file) throws FileNotFoundException, UnsupportedEncodingException {
+        writeSimilarityMatrix(new PrintWriter(file, "UTF-8"));
     }
 
     public void writeSimilarityMatrix(File file, String encoding) throws FileNotFoundException, UnsupportedEncodingException {

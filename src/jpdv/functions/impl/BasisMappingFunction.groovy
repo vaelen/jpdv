@@ -32,12 +32,72 @@ import jpdv.engine.BaseForm
 
 // Map<BaseForm, Map<BaseForm, Double>> space
 
+int THRESHOLD = 2000
+//int THRESHOLD = 400
+
 // Generate list of basis elements
-def baseFormSet = new HashSet<BaseForm>()
+def basisElementSet = new HashSet<BaseForm>()
+def targetCounts = [:]
+def totalTargets = 0
+def basisCounts = [:]
+def totalBasis = 0
+def combinedCounts = [:]
+def totalCombined = 0
 space.each {
+    def target = it.key
+    targetCounts[target] = targetCounts.get(target, 0) + 1
+    totalTargets++
     it.value.each {
-        baseFormSet << it.key
+        def basis = it.key
+        def combined = [target, basis]
+        basisCounts[basis] = basisCounts.get(basis, 0) + 1
+        totalBasis++
+        combinedCounts[combined] = combinedCounts.get(combined, 0) + 1
+        totalCombined++
+        basisElementSet << basis
     }
 }
-println "# of Basis Mappings: ${baseFormSet.size()}"
-return baseFormSet
+
+println "# of Basis Mappings: ${basisElementSet.size()}"
+
+if(THRESHOLD > 0 && basisElementSet.size() > THRESHOLD) {
+    // Calculate Pointwise Mutual Information (PMI) values.
+
+    def pmi = [:]
+    combinedCounts.each {
+        def combined = it.key
+        def target = combined[0]
+        def basis = combined[1]
+        def pTarget = targetCounts[target] / totalTargets
+        def pBasis = basisCounts[basis] / totalBasis
+        def pCombined = it.value / totalCombined
+        def pmiList = pmi[basis]
+        if(pmiList == null) {
+            pmiList = []
+            pmi[basis] = pmiList
+        }
+        pmiList << Math.log(pCombined / (pTarget * pBasis))
+    }
+
+    def averagePMI = [:]
+    pmi.each {
+        // Each entry contains a list of PMI values for a given basis element
+        def basis = it.key
+        def pmiList = it.value
+        averagePMI[basis] = pmiList.sum() / pmiList.size()
+    }
+
+    while(basisElementSet.size() > THRESHOLD) {
+        // Reduce number of basis elements by removing those with the lowest PMI.
+        def basis = basisElementSet.min { averagePMI[it] }
+        basisElementSet -= basis
+    }
+
+    println "# of Final Basis Mappings: ${basisElementSet.size()}"
+}
+
+
+
+
+
+return basisElementSet
