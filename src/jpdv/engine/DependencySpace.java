@@ -36,6 +36,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jpdv.functions.FunctionExecutor;
 
 /**
  * This class has three (or more) threads.
@@ -100,8 +101,10 @@ public class DependencySpace extends VectorSpace {
     private void buildPaths(BaseForm target, Chunk last, Chunk current, Deque<Chunk> stack, Deque<BaseForm> path, Deque<BaseForm> updates) {
         // Add our current path if this isn't the first chunk
         if(!last.equals(current)) {
-            BaseForm pathForm = createPathForm(path);
-            updates.add(pathForm);
+            if(FunctionExecutor.executeContextSelectionFunction(path)) {
+                BaseForm pathForm = createPathForm(path);
+                updates.add(pathForm);
+            }
         }
         // Follow all children except the one we came from.
         for(Chunk child: current.getChildren()) {
@@ -127,8 +130,10 @@ public class DependencySpace extends VectorSpace {
             if (stack.isEmpty()) {
                 // This is the root node of the sentence.
                 path.addLast(Sentence.SENTENCE_SEPARATOR.getBaseForm());
-                BaseForm rootPathForm = createPathForm(path);
-                updates.add(rootPathForm);
+                if(FunctionExecutor.executeContextSelectionFunction(path)) {
+                    BaseForm rootPathForm = createPathForm(path);
+                    updates.add(rootPathForm);
+                }
                 path.removeLast();
             } else {
                 // Now process the parent

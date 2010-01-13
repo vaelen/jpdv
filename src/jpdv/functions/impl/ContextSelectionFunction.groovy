@@ -29,5 +29,11 @@ wish to do so, delete this exception statement from your version.
 
 package jpdv.functions.impl
 
-println "Path: $path"
-return true
+//Collection<BaseForm> path
+
+int THRESHOLD = 6
+if(path.size() > THRESHOLD) {
+    return false
+} else {
+    return true
+}

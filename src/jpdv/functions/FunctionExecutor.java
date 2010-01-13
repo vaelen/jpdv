@@ -32,6 +32,7 @@ package jpdv.functions;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public class FunctionExecutor {
         Function function = null;
         switch(type) {
             case BASIS_MAPPING:
-                function = getDefaultImpl("TestFunction.groovy");
+                function = getDefaultImpl("BasisMappingFunction.groovy");
                 break;
             case CONTEXT_SELECTION:
                 function = getDefaultImpl("ContextSelectionFunction.groovy");
@@ -118,7 +119,7 @@ public class FunctionExecutor {
         function.eval();
     }
 
-    public static synchronized boolean executeContextSelectionFunction(String path) {
+    public static synchronized boolean executeContextSelectionFunction(Collection<BaseForm> path) {
         boolean ret = true;
         Function function = FUNCTION_MAP.get(FunctionType.CONTEXT_SELECTION);
         function.bind("path", path);
@@ -140,7 +141,7 @@ public class FunctionExecutor {
         return ret;
     }
 
-    public static synchronized List<BaseForm> executeBasisMappingFunction(Map<BaseForm, Map<BaseForm, Integer>> space) {
+    public static synchronized List<BaseForm> executeBasisMappingFunction(Map<BaseForm, Map<BaseForm, Double>> space) {
         List<BaseForm> list = new ArrayList<BaseForm>();
         Function function = FUNCTION_MAP.get(FunctionType.BASIS_MAPPING);
         function.bind("space", space);

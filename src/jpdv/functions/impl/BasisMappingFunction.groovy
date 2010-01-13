@@ -28,13 +28,16 @@ wish to do so, delete this exception statement from your version.
 */
 
 package jpdv.functions.impl
+import jpdv.engine.BaseForm
 
-// Map<BaseForm, Map<BaseForm, Integer>> space
+// Map<BaseForm, Map<BaseForm, Double>> space
 
 // Generate list of basis elements
-def baseFormSet = new HashSet()
-space.values.each {
-    baseFormSet.addAll(it.keySet)
+def baseFormSet = new HashSet<BaseForm>()
+space.each {
+    it.value.each {
+        baseFormSet << it.key
+    }
 }
-println "# of Basis Mappings: ${baseFormSet.size}"
-return baseFormSet;
+println "# of Basis Mappings: ${baseFormSet.size()}"
+return baseFormSet

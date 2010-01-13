@@ -33,20 +33,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import jpdv.functions.FunctionExecutor;
 
 public abstract class VectorSpace {
 
     protected Corpus corpus;
-    protected Map<BaseForm, Map<BaseForm, Integer>> space = new TreeMap<BaseForm, Map<BaseForm, Integer>>();
+    protected Map<BaseForm, Map<BaseForm, Double>> space = new TreeMap<BaseForm, Map<BaseForm, Double>>();
 
     protected VectorSpace(Corpus corpus) {
         this.corpus = corpus;
@@ -60,18 +56,19 @@ public abstract class VectorSpace {
     }
 
     protected void incrementCount(BaseForm key, Collection<BaseForm> basisElements) {
-        Map<BaseForm, Integer> map = space.get(key);
+        Map<BaseForm, Double> map = space.get(key);
         if (map == null) {
-            map = new TreeMap<BaseForm, Integer>();
+            map = new TreeMap<BaseForm, Double>();
             space.put(key, map);
         }
         for(BaseForm basisElement: basisElements) {
-            Integer i = map.get(basisElement);
-            if (i == null) {
-                i = 0;
+            Double d = map.get(basisElement);
+            if (d == null) {
+                d = 0.0;
             }
-            i++;
-            map.put(basisElement, i);
+            Double pathValue = FunctionExecutor.executePathValueFunction(basisElement.getValue());
+            d += pathValue;
+            map.put(basisElement, d);
         }
     }
 
@@ -91,16 +88,16 @@ public abstract class VectorSpace {
         }
         out.println();
         out.flush();
-        for (Map.Entry<BaseForm, Map<BaseForm, Integer>> entry : space.entrySet()) {
+        for (Map.Entry<BaseForm, Map<BaseForm, Double>> entry : space.entrySet()) {
             BaseForm current = entry.getKey();
-            Map<BaseForm, Integer> map = entry.getValue();
+            Map<BaseForm, Double> map = entry.getValue();
             out.printf("%s", current);
             for (BaseForm basisElement : basisElements) {
-                Integer count = map.get(basisElement);
+                Double count = map.get(basisElement);
                 if (count == null) {
-                    count = 0;
+                    count = 0.0;
                 }
-                out.printf("\t%d", count);
+                out.printf("\t%f", count);
             }
             out.println();
             out.flush();

@@ -29,5 +29,5 @@ wish to do so, delete this exception statement from your version.
 
 package jpdv.functions.impl
 
-println "Path: $path"
+//println "Path: $path"
 return 1
