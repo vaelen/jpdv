@@ -72,8 +72,8 @@ public abstract class VectorSpace {
         }
     }
 
-    public void writeSpace(File file) throws FileNotFoundException {
-        writeSpace(new PrintWriter(file));
+    public void writeSpace(File file) throws FileNotFoundException, UnsupportedEncodingException {
+        writeSpace(new PrintWriter(file, "UTF-8"));
     }
 
     public void writeSpace(File file, String encoding) throws FileNotFoundException, UnsupportedEncodingException {
