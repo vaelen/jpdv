@@ -76,7 +76,13 @@ if(THRESHOLD > 0 && basisElementSet.size() > THRESHOLD) {
             pmiList = []
             pmi[basis] = pmiList
         }
-        pmiList << Math.log(pCombined / (pTarget * pBasis))
+        def currentPMI = Math.log(pCombined / (pTarget * pBasis))
+        if(currentPMI < 0) {
+            currentPMI = 0
+        }
+        pmiList << currentPMI
+
+
     }
 
     def averagePMI = [:]
@@ -84,7 +90,7 @@ if(THRESHOLD > 0 && basisElementSet.size() > THRESHOLD) {
         // Each entry contains a list of PMI values for a given basis element
         def basis = it.key
         def pmiList = it.value
-        averagePMI[basis] = pmiList.sum() / pmiList.size()
+        averagePMI[basis] = pmiList.sum() / totalTargets
     }
 
     while(basisElementSet.size() > THRESHOLD) {
